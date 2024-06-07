@@ -1,8 +1,6 @@
-// console.log("ECECUTED Finally")
-// const person: string = "Adam"
-// import moment from "moment"
-// const currentTime = moment().format("YYYY MM DD")
-// console.log(currentTime)
-
-// Architectural pattern : MVC(model view controller), DI(dependency injection), MVP  backendni asosi
-// Design pattern: Midlware , decotar
+// module js da import ,,, common js da require ishlatiladi
+// import env from "..//"
+import dotenv from "dotenv"
+dotenv.config()
+console.log("Port", process.env.PORT)
+console.log("Port", process.env.MONGO_URL)
