@@ -1,4 +1,4 @@
-function getPositive(arr: number[]) {
+function getPositive(arr: number[]): string {
   return arr.filter(num => num > 0).join('');
 }
 
