@@ -1,6 +1,7 @@
 import express from "express"
 import path from "path"
 import router from "./router"
+import routerAdmin from "./routerAdmin"
 
 //1 Enterance
 const app = express()
@@ -16,6 +17,7 @@ app.set("views",path.join(__dirname,"views"))
 app.set("views engine", "ejs")
 
 //4 Routers
-app.use("/", router)
+app.use("/admin", routerAdmin) // BSSR : ejs
+app.use("/", router)           // SPA: React
 
 export default app
