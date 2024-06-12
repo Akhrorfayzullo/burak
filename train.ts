@@ -1,5 +1,13 @@
-function getPositive(arr: number[]) {
-  return arr.filter(num => num > 0).join('');
-}
+//Project standarts => Logging standarts, Naming standarts(function, variable, method =>CamelCase
+  //pascal => class
+  //folder => KEBAB
+  //css => snake
+//) 
 
-console.log(getPositive([1, -4, 2]));    // "12"
+//Error handling
+
+
+
+//Traditional API
+//Rest API
+//GraphQL API
