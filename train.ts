@@ -1,13 +1,7 @@
-//Task H
-function getDigits(input: string): string {
-  let result = '';
-  for (let a of input) {
-      if (a >= '0' && a <= '9') {
-          result += a;
-      }
-  }
-  return result;
-}
+//Project standarts => Logging standarts, Naming standarts(function, variable, method =>CamelCase
+  //pascal => class
+  //folder => KEBAB
+  //css => snake
+//) 
 
-const result = getDigits("m14i1t");
-console.log(result); 
+//Error handling
