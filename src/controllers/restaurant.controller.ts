@@ -50,21 +50,16 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
     try{
         console.log("processSignup")
         console.log("body", req.body)
-        res.send("Done processSignup Method Post")
+
+        const newMember: MemberInput = req.body;
+        newMember.memberType = MemberType.RESTAURANT;
+
+
         const memberService = new MemberService()
-        await memberService.processSignup
+        const result = await memberService.processSignup(newMember);
 
-        // ????
+        res.send(result)
         console.log("processSignup!");
-
-		const newMember: MemberInput = req.body;
-		newMember.memberType = MemberType.RESTAURANT;
-
-		const result = await memberService.processSignup(newMember);
-
-		res.send(result);
-        
-
     } catch (err){
         console.log("ERROR , processSignup: ",err)
     }

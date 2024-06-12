@@ -3,13 +3,13 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 import { Member, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 class MemberService {
-    private readonly memberModel
-    constructor() {
-        this.memberModel = MemberModel
-    }
+	private readonly memberModel;
 
-    public async processSignup(input: MemberInput): Promise<Member> {
-        // const result = await this.memberModel.create(input);
+	constructor() {
+		this.memberModel = MemberModel;
+	}
+
+	public async processSignup(input: MemberInput): Promise<Member> {
 		const exist = await this.memberModel
 			.findOne({ memberType: MemberType.RESTAURANT })
 			.exec();
@@ -31,4 +31,4 @@ class MemberService {
 	}
 }
 
-export default MemberService
+export default MemberService;
