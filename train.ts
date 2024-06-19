@@ -1,26 +1,18 @@
-function majorityElement(nums: number[]): number {
-  // Create a Map to count occurrences of each number
-  const mapCount = new Map<number, number>();
+function findLongestWord(input: string): string {
+    const words = input.split(' ');
 
+   
+    let longest = '';
 
-  for (const num of nums) {
-      mapCount.set(num, (mapCount.get(num) || 0) + 1);
-  }
+    for (const word of words) {
+        if (word.length > longest.length) {
+            longest = word;
+        }
+    }
 
-
-  let majorityNum = nums[0];
-  let maxCount = 0;
-
-  for (const [num, count] of mapCount) {
-      if (count > maxCount) {
-          maxCount = count;
-          majorityNum = num;
-      }
-  }
-
-  return majorityNum;
+    return longest;
 }
 
-
-console.log(majorityElement([1, 2, 3, 4, 5, 4, 3, 4])); 
+console.log(findLongestWord("I come from Uzbekistan"));
+ 
 
