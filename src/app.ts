@@ -21,7 +21,7 @@ app.set("views",path.join(__dirname,"views"))
 app.set("views engine", "ejs")
 
 //4 Routers
-app.use("/admin", routerAdmin) // BSSR : ejs
-app.use("/", router)           // SPA: React
+app.use("/admin", routerAdmin) // BSSR : ejs SSR 
+app.use("/", router)           // SPA: React SPA
 
 export default app
