@@ -12,6 +12,7 @@ mongoose.connect(process.env.MONGO_URL as string, {})
     const PORT = process.env.PORT ?? 3003
     app.listen(PORT, function () {
         console.log("the server is successfully connected on port: ", PORT)
+        console.log(`Admin project on http://localhost:${PORT}/admin \n`)
     })
 })
 .catch((err) => console.log("Error on connection to MongoDB",err))

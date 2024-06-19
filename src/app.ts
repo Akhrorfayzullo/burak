@@ -17,8 +17,10 @@ app.use(morgan(MORGAN_FORMAT))
 //2 Session
 
 //3 views
-app.set("views",path.join(__dirname,"views"))
-app.set("views engine", "ejs")
+// app.set("views",path.join(__dirname,"views"))
+// app.set("views engine", "ejs")
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 //4 Routers
 app.use("/admin", routerAdmin) // BSSR : ejs SSR 
