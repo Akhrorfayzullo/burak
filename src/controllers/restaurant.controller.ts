@@ -3,6 +3,7 @@ import {Request, Response} from "express"
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
+import { Message } from "../libs/Errors";
 
 
 
@@ -90,5 +91,38 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         console.log("ERROR , processSignup: ",err)
     }
 }
+
+restaurantController.checkAuthSession = async (
+	req: AdminRequest,
+	res: Response
+) => {
+	try {
+		console.log("checkAuthSession");
+
+		if (req.session?.member) {
+			// res.send(`HI, ${req.session.member.memberNick}`);
+			res.send(`<script>alert(${req.session.member.memberNick})</script>`);
+		} else {
+			// res.send(Message.NOT_AUTHENTICATED);
+			res.send(`<script>alert(${Message.NOT_AUTHENTICATED})</script>`);
+		}
+	} catch (err: any) {
+		console.log("Error on processLogin:", err.message);
+		res.send(err);
+	}
+};
+
+restaurantController.Logout = async (req: AdminRequest, res: Response) => {
+	try {
+		console.log("req.body: ", req.body);
+		req.session.destroy(() => {
+			res.redirect("/admin");
+			
+		});
+	} catch (err: any) {
+		console.log("Error on adminLogout:", err.message);
+		res.redirect("/admin");
+	}
+};
 
 export default restaurantController
