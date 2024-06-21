@@ -1,18 +1,19 @@
-function findLongestWord(input: string): string {
-    const words = input.split(' ');
-
-   
-    let longest = '';
-
-    for (const word of words) {
-        if (word.length > longest.length) {
-            longest = word;
+function countVowels(sentence: string): number {
+    const vowels = 'aeiouAEIOU';
+    
+    let count = 0;
+    
+    for (const char of sentence) {
+        if (vowels.includes(char)) {
+            count++;
         }
     }
-
-    return longest;
+    
+    return count;
 }
 
-console.log(findLongestWord("I come from Uzbekistan"));
+console.log(countVowels("string")); 
+console.log(countVowels("I come from here Uzbekistan")); 
+
  
 
