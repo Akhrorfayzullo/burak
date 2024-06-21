@@ -1,35 +1,47 @@
 import {T} from "../libs/types/common"
 import {Request, Response} from "express"
+import MemberService from "../models/Member.service";
+import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import { MemberType } from "../libs/enums/member.enum";
+import Errors from "../libs/Errors";
 
-// for REACT 
+const memberService = new MemberService()
 
 const memberController : T = {};
 
-// memberController.goHome = (req: Request, res: Response) => {
-//     try{
-//         res.send("Home Page")
+memberController.signup = async (req: Request, res: Response) => {
+    try{
+        console.log("Signup")
+        const input: MemberInput = req.body,
 
-//     } catch (err){
-//         console.log("ERROR , goHome: ",err)
-//     }
-// }
+            result : Member = await memberService.signup(input);
 
-// memberController.getLogin = (req: Request, res: Response) => {
-//     try{
-//         res.send("Login Page")
 
-//     } catch (err){
-//         console.log("ERROR , getLogin: ",err)
-//     }
-// }
+        res.json({member : result})
+    } catch (err){
+        console.log("ERROR , signup: ",err)
+        if (err instanceof Errors) res.status(err.code).json(err);
+		else res.status(Errors.standard.code).json(Errors.standard.message);
+        // res.json(err)
+        
+    }
+}
 
-// memberController.getSignup = (req: Request, res: Response) => {
-//     try{
-//         res.send("Sign Up Page")
+memberController.login = async (req: Request, res: Response) => {
+    try{
+        console.log("Login")
+        
+        const input : LoginInput = req.body,
+          result = await memberService.login(input);
+        res.json({member : result});
+    } catch (err: any) {
+		console.log("Error on login", err.message);
+		if (err instanceof Errors) res.status(err.code).json(err);
+		else res.status(Errors.standard.code).json(Errors.standard.message);		
+	}
+}
 
-//     } catch (err){
-//         console.log("ERROR , getSignup: ",err)
-//     }
-// }
+// *************************
+
 
 export default memberController

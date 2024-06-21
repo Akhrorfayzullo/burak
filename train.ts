@@ -1,13 +1,19 @@
-//Project standarts => Logging standarts, Naming standarts(function, variable, method =>CamelCase
-  //pascal => class
-  //folder => KEBAB
-  //css => snake
-//) 
+function countVowels(sentence: string): number {
+    const vowels = 'aeiouAEIOU';
+    
+    let count = 0;
+    
+    for (const char of sentence) {
+        if (vowels.includes(char)) {
+            count++;
+        }
+    }
+    
+    return count;
+}
 
-//Error handling
+console.log(countVowels("string")); 
+console.log(countVowels("I come from here Uzbekistan")); 
 
+ 
 
-
-//Traditional API
-//Rest API
-//GraphQL API
