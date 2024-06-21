@@ -126,7 +126,7 @@ restaurantController.checkAuthSession = async (
 	}
 };
 
-restaurantController.Logout = async (req: AdminRequest, res: Response) => {
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
 	try {
 		console.log("req.body: ", req.body);
 		req.session.destroy(() => {
