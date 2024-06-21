@@ -3,6 +3,7 @@ import {Request, Response} from "express"
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
+import Errors from "../libs/Errors";
 import { Message } from "../libs/Errors";
 
 
@@ -17,6 +18,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         //send | json | redirect | end | render
 
     } catch (err){
+        res.redirect("/admin")
         console.log("ERROR , goHome: ",err)
     }
 }
@@ -26,6 +28,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         res.render("login")
         console.log("GoLogin")
     } catch (err){
+        res.redirect("/admin")
         console.log("ERROR , getLogin: ",err)
     }
 }
@@ -35,7 +38,9 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.render("signup")
         console.log("GoSignup")
     } catch (err){
+    
         console.log("ERROR , getSignup: ",err)
+        res.redirect("/admin")
     }
 }
 // *************************
@@ -57,7 +62,11 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
     } catch (err){
 
         console.log("ERROR , processLogin: ",err)
-        res.send(err)
+        const message =
+			err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+		res.send(
+			`<script>alert(${message}); window.location.replace("admin/login")</script>`
+		);
     }
 }
 
@@ -87,8 +96,13 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         res.send(result)
         console.log("processSignup!");
     } catch (err){
-        res.send(err)
+        
         console.log("ERROR , processSignup: ",err)
+        const message =
+			err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+		res.send(
+			`<script>alert(${message}); window.location.replace("admin/signup")</script>`
+		);
     }
 }
 
