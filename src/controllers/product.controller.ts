@@ -4,6 +4,7 @@ import Errors from "../libs/Errors";
 import ProductService from "../models/Product.service";
 import { AdminRequest } from "../libs/types/member";
 
+
 const memberService = new ProductService()
 
 
@@ -13,7 +14,7 @@ const productController : T = {};
 
 productController.getAllProducts = async (req: Request, res: Response) => {
     try{
-        console.log("getAllProducts")
+        console.log("getAllProducts is working")
         // console.log("reqwest member ", req.member)
         res.render("products")
     } catch (err){
