@@ -87,13 +87,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
 			res.send(result);
 		});
 
-
-
-        
-        // const result = await memberService.processSignup(newMember);
-
         // res.send(result)
-        res.send(result)
         console.log("processSignup!");
     } catch (err){
         
@@ -139,19 +133,19 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
 	}
 };
 
-restaurantController.verifyRestaurant =  (req: AdminRequest, res: Response, next: NextFunction) => {
-	
-		if (req.session?.member?.memberType === MemberType.RESTAURANT) {
-            req.member = req.session.member;
-            next();
-            
-        } else{
-            const message = Message.NOT_AUTHENTICATED
+restaurantController.verifyRestaurant =  (
+	req: AdminRequest,
+	res: Response,
+	next: NextFunction
+) => {
+	if (req.session?.member?.memberType === MemberType.RESTAURANT) {
+		req.member = req.session.member;
+		next();
+	} else {
+		const message = Message.NOT_AUTHENTICATED;
 		res.send(
-			`<script> alert("${message}"); window.location.replace("/admin/login"); </script>`
+			`<script>alert('${message}'); window.location.replace('/admin/login')</script>`
 		);
-        }
-        
-	
+	}
 };
 export default restaurantController

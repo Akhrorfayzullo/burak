@@ -25,10 +25,15 @@ routerAdmin.get(
  restaurantController.verifyRestaurant,
  productController.getAllProducts
 );
-routerAdmin.post("/product/create",restaurantController.verifyRestaurant,
-// uploadProductImage.single("productImage"),
-makeUploader("products").single("productImage"),
-productController.createNewProduct);
+
+routerAdmin.post(
+    "/product/create",
+    // restaurantController.verifyRestaurant,
+    // uploadProductImage.single("productImage"),
+    makeUploader("products").single("productImage"),
+    productController.createNewProduct
+);
+
 routerAdmin.post("/product/update",restaurantController.verifyRestaurant, productController.updateChosenProduct)
 
 //User
