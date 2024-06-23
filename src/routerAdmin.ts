@@ -1,5 +1,6 @@
 import express from "express"
 import restaurantController from "./controllers/restaurant.controller";
+import productController from "./controllers/product.controller"
 const routerAdmin = express.Router();
 //Restaurant
 
@@ -17,6 +18,9 @@ routerAdmin.get("/check-me", restaurantController.checkAuthSession);
 routerAdmin.get("/logout", restaurantController.logout);
 
 //Product
+routerAdmin.get("/product/all", productController.getAllProducts);
+routerAdmin.post("/product/create", productController.createNewProduct);
+routerAdmin.post("/product/update", productController.updateChosenProduct)
 
 //User
 
