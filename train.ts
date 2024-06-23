@@ -1,19 +1,11 @@
-function countVowels(sentence: string): number {
-    const vowels = 'aeiouAEIOU';
-    
-    let count = 0;
-    
-    for (const char of sentence) {
-        if (vowels.includes(char)) {
-            count++;
-        }
-    }
-    
-    return count;
+function reverseSentence(sentence: string): string {
+    const words = sentence.split(' ');
+
+    const reversedWords = words.map(word => word.split('').reverse().join(''));
+
+    return reversedWords.join(' ');
 }
 
-console.log(countVowels("string")); 
-console.log(countVowels("I come from here Uzbekistan")); 
-
+console.log(reverseSentence("we like coding!")); 
  
 
