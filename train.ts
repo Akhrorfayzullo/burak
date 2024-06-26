@@ -1,11 +1,12 @@
-function reverseSentence(sentence: string): string {
-    const words = sentence.split(' ');
-
-    const reversedWords = words.map(word => word.split('').reverse().join(''));
-
-    return reversedWords.join(' ');
-}
-
-console.log(reverseSentence("we like coding!")); 
+function getSquareNumbers(numbers) {
+    return numbers.map(number => ({
+      number: number,
+      square: number * number
+    }));
+  }
+  
+  const result = getSquareNumbers([1, 2, 3]);
+  console.log(result);
+  
  
 
