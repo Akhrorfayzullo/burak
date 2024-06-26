@@ -7,9 +7,9 @@
   </head>
   <body>
     <div>Product Page</div>
-    <div><%=member.memberNick=%></div>
+    <div>I am <%=member.memberNick%></div>
 
-    <% productData.map((product, index) => { %>
+    <% data.map((product, index) => { %>
     <p><%= product.productName %> - <%= product.productSize %></p>
     <% } ) %>
   </body>

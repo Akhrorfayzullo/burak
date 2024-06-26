@@ -81,7 +81,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
 		}
         const newMember: MemberInput = req.body;
 
-		newMember.memberImage = file?.path.replace(/\\/g,"/")
+		newMember.memberImage = file?.path.replace(/\\/g, "/")
         newMember.memberType = MemberType.RESTAURANT;
 
         
@@ -89,6 +89,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         //TODO: session
         req.session.member = result;
 		req.session.save(() => {
+			// res.send("ok")
 			res.redirect("/admin/product/all");
 		});
 
