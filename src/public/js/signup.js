@@ -1,7 +1,7 @@
 console.log("Signup frontend javascript file");
 $(function () {
   const fileTarget = $(".file-box .upload-hidden");
-  let fileName;
+  let filename;
 
   fileTarget.on("change", function () {
     if (window.FileReader) {
@@ -20,10 +20,10 @@ $(function () {
             .addClass("success");
         }
 
-        fileName = $(this)[0].files[0].name;
+        filename = $(this)[0].files[0].name;
       }
 
-      $(this).siblings(".upload-name").val(fileName);
+      $(this).siblings(".upload-name").val(filename);
     }
   });
 });
@@ -48,7 +48,7 @@ function validateSignupForm() {
     return false;
   }
 
-  const memberImage = $(".member-image").get(0).files[0].name
+  const memberImage = $(".member-image").get(0).files[0]
     ? $(".member-image").get(0).files[0].name
     : null;
 
