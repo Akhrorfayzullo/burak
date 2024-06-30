@@ -1,19 +1,14 @@
-//today Reja 
-// 1 getusers
-//update Chosen users
- 
 
-const palindromCheck = (word: string): boolean => {
-    
-    const cleanedWord = word.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+const calculateSumOfNumbers = (arr: any[]): number => {
+    let sum = 0;
 
-    const reversedWord = cleanedWord.split('').reverse().join('');
+    for (const value of arr) {
+        if (typeof value === 'number') {
+            sum += value;
+        }
+    }
 
-    
-    return cleanedWord === reversedWord;
+    return sum;
 }
 
-
-console.log(palindromCheck("dad")); 
-console.log(palindromCheck("son"));
-console.log(palindromCheck("Falastin")); 
+console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35])); 
