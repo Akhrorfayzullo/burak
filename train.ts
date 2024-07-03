@@ -1,14 +1,13 @@
+const objectToArray = (obj: { [key: string]: any }): [string, any][] => {
+    const result: [string, any][] = [];
 
-const calculateSumOfNumbers = (arr: any[]): number => {
-    let sum = 0;
-
-    for (const value of arr) {
-        if (typeof value === 'number') {
-            sum += value;
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            result.push([key, obj[key]]);
         }
     }
 
-    return sum;
+    return result;
 }
 
-console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35])); 
+console.log(objectToArray({a: 10, b: 20})); 
