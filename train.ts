@@ -1,13 +1,7 @@
-const objectToArray = (obj: { [key: string]: any }): [string, any][] => {
-    const result: [string, any][] = [];
-
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            result.push([key, obj[key]]);
-        }
-    }
-
-    return result;
+const hasProperty = (obj: { [key: string]: any }, prop: string): boolean => {
+    return prop in obj;
 }
 
-console.log(objectToArray({a: 10, b: 20})); 
+console.log(hasProperty({name: "BMW", model: "M3"}, "model"));
+console.log(hasProperty({name: "BMW", model: "M3"}, "year"));  
+

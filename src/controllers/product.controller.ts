@@ -67,7 +67,7 @@ productController.updateChosenProduct = async (req: Request, res: Response) => {
 			id,req.body
 		);
         // res.send(result)
-		res.status(HttpCode.OK).json({ productData: result });
+		res.status(HttpCode.OK).json({ data: result });
     } catch (err){
         console.log("ERROR , updateChosenProduct: ",err)
         if (err instanceof Errors) res.status(err.code).json(err);

@@ -41,7 +41,7 @@ $(function () {
       const result = response.data;
       console.log("response from axios", response);
 
-      if (result.productData) {
+      if (result.data) {
         console.log("product updated");
         $(".new-product-status").blur();
       } else {
