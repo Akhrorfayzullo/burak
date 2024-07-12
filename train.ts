@@ -1,11 +1,8 @@
-const missingNumber = (nums: number[]): number => {
-    const n = nums.length;
-    const totalSum = (n * (n + 1)) / 2;
-    const arraySum = nums.reduce((acc, num) => acc + num, 0);
-    return totalSum - arraySum;
+const mergeSortedArrays = (arr1: number[], arr2: number[]): number[] => {
+    return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
-console.log(missingNumber([3, 0, 1])); 
-console.log(missingNumber([0, 1]));   
+console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
+
 
 
