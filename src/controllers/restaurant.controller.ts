@@ -1,9 +1,9 @@
 import {T} from "../libs/types/common"
-import {Request, Response} from "express"
+import {NextFunction, Request, Response} from "express"
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
-import Errors from "../libs/Errors";
+import Errors, { HttpCode } from "../libs/Errors";
 import { Message } from "../libs/Errors";
 
 
@@ -54,7 +54,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
         const result = await memberService.processLogin(input)
         req.session.member = result;
 		req.session.save(() => {
-			res.send(result);
+			res.redirect("/admin/product/all");
 		});
 
         
@@ -65,7 +65,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
         const message =
 			err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
 		res.send(
-			`<script>alert(${message}); window.location.replace("admin/login")</script>`
+			`<script>alert(${message}); window.location.replace("/admin/login")</script>`
 		);
     }
 }
@@ -74,9 +74,14 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 restaurantController.processSignup = async (req: AdminRequest, res: Response) => {
     try{
         console.log("processSignup")
-        console.log("body", req.body)
-
+		const file = req.file
+		if (!file) {
+			throw new Errors(HttpCode.BAD_REQUEST,Message.SOMETHING_WENT_WRONG);
+			
+		}
         const newMember: MemberInput = req.body;
+
+		newMember.memberImage = file?.path.replace(/\\/g, "/")
         newMember.memberType = MemberType.RESTAURANT;
 
         
@@ -84,16 +89,11 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         //TODO: session
         req.session.member = result;
 		req.session.save(() => {
-			res.send(result);
+			// res.send("ok")
+			res.redirect("/admin/product/all");
 		});
 
-
-
-        
-        // const result = await memberService.processSignup(newMember);
-
         // res.send(result)
-        res.send(result)
         console.log("processSignup!");
     } catch (err){
         
@@ -101,7 +101,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         const message =
 			err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
 		res.send(
-			`<script>alert(${message}); window.location.replace("admin/signup")</script>`
+			`<script>alert('${message}'); window.location.replace("/admin/signup")</script>`
 		);
     }
 }
@@ -139,4 +139,44 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
 	}
 };
 
+restaurantController.getUsers = async (req: Request, res: Response) => {
+    try{
+        console.log("getUsers");
+		const result = await memberService.getUsers();
+		console.log("result: ", result)
+		res.render("users", {users: result})
+    } catch (err){
+		console.log("ERROR , getUsers: ",err)
+        res.redirect("/admin/login")
+    }
+}
+
+restaurantController.updateChosenUser = async (req: Request, res: Response) => {
+    try{
+        console.log("updateChosenUser")
+		const result  = await memberService.updateChosenUser(req.body);
+
+		res.status(HttpCode.OK).json({data: result})
+    } catch (err){
+		console.log("ERROR , updateChosenUser: ",err)
+        if (err instanceof Errors) res.status(err.code).json(err);
+		else res.status(Errors.standard.code).json(Errors.standard.message);
+    }
+}
+
+restaurantController.verifyRestaurant =  (
+	req: AdminRequest,
+	res: Response,
+	next: NextFunction
+) => {
+	if (req.session?.member?.memberType === MemberType.RESTAURANT) {
+		req.member = req.session.member;
+		next();
+	} else {
+		const message = Message.NOT_AUTHENTICATED;
+		res.send(
+			`<script>alert('${message}'); window.location.replace('/admin/login')</script>`
+		);
+	}
+};
 export default restaurantController

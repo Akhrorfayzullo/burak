@@ -1,5 +1,7 @@
 import express from "express"
 import restaurantController from "./controllers/restaurant.controller";
+import productController from "./controllers/product.controller"
+import makeUploader from "./libs/utils/uploader";
 const routerAdmin = express.Router();
 //Restaurant
 
@@ -11,13 +13,36 @@ routerAdmin
 
 routerAdmin
     .get("/signup",restaurantController.getSignup)
-    .post("/signup",restaurantController.processSignup)
+    
+    .post("/signup",makeUploader("members").single("memberImage"),restaurantController.processSignup)
 routerAdmin.get("/check-me", restaurantController.checkAuthSession);
 
 routerAdmin.get("/logout", restaurantController.logout);
 
 //Product
+routerAdmin.get(
+    "/product/all",
+ restaurantController.verifyRestaurant,
+ productController.getAllProducts
+);
+
+routerAdmin.post(
+    "/product/create",
+    restaurantController.verifyRestaurant,
+    makeUploader("products").array("productImages",5),
+    productController.createNewProduct
+);
+
+routerAdmin.post("/product/:id",restaurantController.verifyRestaurant, productController.updateChosenProduct)
 
 //User
+
+routerAdmin.get("/user/all", restaurantController.verifyRestaurant, restaurantController.getUsers);
+
+routerAdmin.post(
+	"/user/edit",
+	restaurantController.verifyRestaurant,
+	restaurantController.updateChosenUser
+);
 
 export default routerAdmin

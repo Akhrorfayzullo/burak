@@ -1,19 +1,8 @@
-function countVowels(sentence: string): number {
-    const vowels = 'aeiouAEIOU';
-    
-    let count = 0;
-    
-    for (const char of sentence) {
-        if (vowels.includes(char)) {
-            count++;
-        }
-    }
-    
-    return count;
+const mergeSortedArrays = (arr1: number[], arr2: number[]): number[] => {
+    return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
-console.log(countVowels("string")); 
-console.log(countVowels("I come from here Uzbekistan")); 
+console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
 
- 
+
 
