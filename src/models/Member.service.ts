@@ -21,8 +21,9 @@ class MemberService {
 	
 			const result = await this.memberModel
 				.findOne({ memberType: MemberType.RESTAURANT })
-		  .exec();      
-	
+			    .lean()	
+		    	.exec();      
+			result.target = "Check Adam"
 	  
 			if (!result) {
 				throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
