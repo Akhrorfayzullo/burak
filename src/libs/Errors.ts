@@ -19,7 +19,8 @@ export enum Message {
 	WRONG_PASSWORD = "Wrong password inserted, please try again!",
 	BLOCKED_USER = "YOu have been blecked!",
 	// USER_EXIST = "User already exist, please sign in instead",
-    NOT_AUTHENTICATED = "You are not authenticated. Please sign up first!"
+    NOT_AUTHENTICATED = "You are not authenticated. Please sign up first!",
+	TOKEN_CREATION_FAILED = "TOKEN creation error"
 }
 
 class Errors extends Error {

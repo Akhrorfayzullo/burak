@@ -22,7 +22,7 @@ class MemberService {
 		try {
 			const result = await this.memberModel.create(input);
 			result.memberPassword = ""
-			return result
+			return result.toJSON()
 		} catch (err) {
 			console.log("err model: signup", err)
 			throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
@@ -49,6 +49,16 @@ class MemberService {
 		return  await this.memberModel.findById(member._id).lean().exec()
 		
 
+	}
+	public async getMemberDetail(member: Member): Promise<Member> {
+		const memberId = shapeIntoMongooseObjectId(member._id);
+		const result = await this.memberModel
+			.findOne({ _id: memberId, memberStatus: MemberStatus.ACTIVE })
+			.exec();
+
+		if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+		return result;
 	}
 
 
