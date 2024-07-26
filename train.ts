@@ -1,16 +1,18 @@
-const countChars = (str: string): { [key: string]: number } => {
-    const charCount: { [key: string]: number } = {};
+const sumEvens = (nums: number[]): number => {
+    let sum = 0;
 
-    for (const char of str) {
-        charCount[char] = (charCount[char] || 0) + 1;
+    for (const num of nums) {
+        if (num % 2 === 0) {
+            sum += num;
+        }
     }
 
-    return charCount;
+    return sum;
 }
 
-console.log(countChars("hello")); 
-console.log(countChars("test")); 
-console.log(countChars("aabbcc")); 
+console.log(sumEvens([1, 2, 3])); 
+console.log(sumEvens([4, 5, 6, 7]));
+
 
 
 
