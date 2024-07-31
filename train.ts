@@ -1,9 +1,10 @@
-const randomBetween = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+const CtoF = (celsius: number): number => {
+    return (celsius * 9 / 5) + 32;
 }
 
-console.log(randomBetween(30, 50)); 
-console.log(randomBetween(1, 10)); 
+console.log(CtoF(0));   
+console.log(CtoF(100)); 
+console.log(CtoF(30));  
 
 
 
