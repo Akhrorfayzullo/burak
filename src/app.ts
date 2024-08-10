@@ -1,8 +1,10 @@
+import cors from "cors"
 import express from "express"
 import path from "path"
 import router from "./router"
 import routerAdmin from "./routerAdmin"
 import morgan from "morgan"
+import cookieParser from "cookie-parser"
 import { MORGAN_FORMAT } from "./libs/config"
 import dotenv from "dotenv";
 dotenv.config();
@@ -21,8 +23,11 @@ const store = new MongoDBStore({
 //1 Enterance
 const app = express()
 app.use(express.static(path.join(__dirname, "public")))
+app.use("/uploads", express.static("./uploads"))
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
+app.use(cors({credentials: true, origin:true}))
+app.use(cookieParser())
 app.use(morgan(MORGAN_FORMAT)) 
 //middleware design pattern
 
@@ -52,7 +57,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 //4 Routers
-app.use("/admin", routerAdmin) // BSSR : ejs SSR 
 app.use("/", router)           // SPA: React SPA
+app.use("/admin", routerAdmin) // BSSR : ejs SSR 
+
 
 export default app

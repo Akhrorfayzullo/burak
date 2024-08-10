@@ -1,8 +1,14 @@
-const mergeSortedArrays = (arr1: number[], arr2: number[]): number[] => {
-    return [...arr1, ...arr2].sort((a, b) => a - b);
+const CtoF = (celsius: number): number => {
+    return (celsius * 9 / 5) + 32;
 }
 
-console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
+console.log(CtoF(0));   
+console.log(CtoF(100)); 
+console.log(CtoF(30));  
+
+
+
+
 
 
 
