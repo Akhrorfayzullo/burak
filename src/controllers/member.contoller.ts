@@ -32,7 +32,7 @@ memberController.signup = async (req: Request, res: Response) => {
         const result : Member = await memberService.signup(input);
 
         const token = await authService.createToken(result);
-        res.cookie("accesToken",token,{
+        res.cookie("accessToken",token,{
             maxAge: AUTH_TIMER * 3600 * 1000,
             httpOnly: false,
         });
@@ -43,8 +43,6 @@ memberController.signup = async (req: Request, res: Response) => {
         console.log("ERROR , signup: ",err)
         if (err instanceof Errors) res.status(err.code).json(err);
 		else res.status(Errors.standard.code).json(Errors.standard.message);
-        // res.json(err)
-        
     }
 }
 
@@ -109,7 +107,7 @@ memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
 
 		const result = await memberService.updateMember(req.member, input);
 
-		res.status(HttpCode.OK).json({ result });
+		res.status(HttpCode.OK).json(result );
 	} catch (err: any) {
 		console.log("Error: updateMember", err.message);
 		if (err instanceof Errors) res.status(err.code).json(err);
