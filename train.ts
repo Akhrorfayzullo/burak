@@ -1,11 +1,15 @@
-const CtoF = (celsius: number): number => {
-    return (celsius * 9 / 5) + 32;
+function findDisappearedNumbers(arr: number[]): number[] {
+    const maxNum = Math.max(...arr);
+
+   
+    const fullRange: number[] = Array.from({ length: maxNum }, (_, i) => i + 1);
+
+    const missingNumbers: number[] = fullRange.filter(num => !arr.includes(num));
+
+    return missingNumbers;
 }
 
-console.log(CtoF(0));   
-console.log(CtoF(100)); 
-console.log(CtoF(30));  
-
+console.log(findDisappearedNumbers([1, 3, 4, 7])); 
 
 
 
