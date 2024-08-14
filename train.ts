@@ -1,15 +1,15 @@
-function findDisappearedNumbers(arr: number[]): number[] {
-    const maxNum = Math.max(...arr);
-
-   
-    const fullRange: number[] = Array.from({ length: maxNum }, (_, i) => i + 1);
-
-    const missingNumbers: number[] = fullRange.filter(num => !arr.includes(num));
-
-    return missingNumbers;
+function delayHelloWorld(message: string): Promise<string> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(message);
+        }, 3001); 
+    });
 }
 
-console.log(findDisappearedNumbers([1, 3, 4, 7])); 
+delayHelloWorld("Hello World").then((result) => {
+    console.log(result); 
+});
+
 
 
 
