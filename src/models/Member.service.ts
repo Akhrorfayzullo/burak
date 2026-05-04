@@ -5,6 +5,7 @@ import { MemberStatus } from "../libs/enums/member.enum";
 import { MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
 import { shapeIntoMongooseObjectId } from "../libs/config";
+import { ObjectId } from "mongoose";
 
 class MemberService {
 	private readonly memberModel;
@@ -21,14 +22,13 @@ class MemberService {
 	
 			const result = await this.memberModel
 				.findOne({ memberType: MemberType.RESTAURANT })
-			    .lean()	
-		    	.exec();      
-			result.target = "Check Adam"
-	  
+			    .lean()
+		    	.exec();
+
 			if (!result) {
 				throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 			}
-	
+
 			return result;
 		}
 
@@ -185,6 +185,10 @@ class MemberService {
 
 		return result
 	};
+
+	public async getMemberById(memberId: ObjectId): Promise<Member> {
+		return await this.memberModel.findById(memberId).exec();
+	}
 
 	public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {
 		input._id = shapeIntoMongooseObjectId(input._id);

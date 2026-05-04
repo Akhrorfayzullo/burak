@@ -34,7 +34,7 @@ memberController.signup = async (req: Request, res: Response) => {
         const token = await authService.createToken(result);
         res.cookie("accessToken",token,{
             maxAge: AUTH_TIMER * 3600 * 1000,
-            httpOnly: false,
+            httpOnly: true,
         });
 
         console.log("token: >>>",token)
@@ -56,7 +56,7 @@ memberController.login = async (req: Request, res: Response) => {
 
         res.cookie("accessToken",token,{
             maxAge: AUTH_TIMER * 3600 * 1000,
-            httpOnly: false,
+            httpOnly: true,
         });
 
         console.log("token: >>>",token)

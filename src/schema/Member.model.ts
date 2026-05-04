@@ -15,13 +15,13 @@ const memberSchema = new Schema ({
 
     memberNick: {
         type: String,
-        index: {unique: true, sparce: true},
+        index: {unique: true, sparse: true},
         required: true,
 
     },
     memberPhone: {
         type: String,
-        index: {unique: true, sparce: true},
+        index: {unique: true, sparse: true},
         required: true,
     },
     memberPassword: {

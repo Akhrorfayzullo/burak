@@ -1,13 +1,22 @@
-// module js da import ,,, common js da require ishlatiladi
-// import env from "..//"
+import { setDefaultResultOrder } from "dns"
+setDefaultResultOrder("ipv4first")
+
 import dotenv from "dotenv"
-import app from "./app"
 dotenv.config()
-// console.log("Port", process.env.PORT)
-// console.log("Port", process.env.MONGO_URL)
+
+import app from "./app"
 import mongoose from "mongoose"
-mongoose.connect(process.env.MONGO_URL as string, {})
-.then((data) => {
+
+mongoose.set("strictQuery", false)
+
+const MONGO_URL = process.env.MONGO_URL
+if (!MONGO_URL) {
+    console.error("MONGO_URL is missing in .env")
+    process.exit(1)
+}
+
+mongoose.connect(MONGO_URL, {})
+.then(() => {
     console.log("MongoDB is successfully connected")
     const PORT = process.env.PORT ?? 3003
     app.listen(PORT, function () {
@@ -15,4 +24,7 @@ mongoose.connect(process.env.MONGO_URL as string, {})
         console.log(`Admin project on http://localhost:${PORT}/admin \n`)
     })
 })
-.catch((err) => console.log("Error on connection to MongoDB",err))
+.catch((err) => {
+    console.error("Failed to connect to MongoDB:", err.message)
+    process.exit(1)
+})

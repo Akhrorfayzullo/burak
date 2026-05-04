@@ -127,7 +127,8 @@ class OrderService {
 		if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
 		if (orderStatus === OrderStatus.PROCESS) {
-      			const result = await this.memberService.addUserPoint(memberId, 1);      
+			const member = await this.memberService.getMemberById(memberId);
+			if (member) await this.memberService.addUserPoint(member, 1);
 		}
 		return result;
 	}

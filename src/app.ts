@@ -26,7 +26,10 @@ app.use(express.static(path.join(__dirname, "public")))
 app.use("/uploads", express.static("./uploads"))
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
-app.use(cors({credentials: true, origin:true}))
+const allowedOrigins = process.env.CLIENT_URL
+	? process.env.CLIENT_URL.split(",")
+	: ["http://localhost:3000", "http://localhost:3001"];
+app.use(cors({ credentials: true, origin: allowedOrigins }))
 app.use(cookieParser())
 app.use(morgan(MORGAN_FORMAT)) 
 //middleware design pattern
@@ -37,7 +40,7 @@ app.use(
 	session({
 		secret: String(process.env.SESSION_SECRET),
 		cookie: {
-			maxAge: 3600 * 3600 * 6, // 3hours. 
+			maxAge: 6 * 3600 * 1000, // 6 hours in ms
 		},
 		store: store,
 		resave: true,
