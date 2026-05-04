@@ -9,10 +9,7 @@
       "noEmitOnError": false,
       "strict": false,
       "forceConsistentCasingInFileNames": true,
-      "baseUrl": "./",
-      "paths": {
-        "*": ["node_modules/*"]
-      }
+      "ignoreDeprecations": "5.0"
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]
