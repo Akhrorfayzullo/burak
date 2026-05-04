@@ -6,6 +6,8 @@
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
+      "noEmitOnError": false,
+      "strict": false,
       "forceConsistentCasingInFileNames": true,
       "baseUrl": "./",
       "paths": {
