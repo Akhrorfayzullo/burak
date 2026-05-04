@@ -30,9 +30,25 @@ app.use("/uploads", express.static("./uploads"))
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
 const allowedOrigins = process.env.CLIENT_URL
-	? process.env.CLIENT_URL.split(",")
+	? process.env.CLIENT_URL.split(",").map((o) => o.trim())
 	: ["http://localhost:3000", "http://localhost:3001"];
-app.use(cors({ credentials: true, origin: allowedOrigins }))
+
+app.use(cors({
+	credentials: true,
+	origin: (origin, callback) => {
+		if (!origin) return callback(null, true);
+		if (
+			allowedOrigins.includes(origin) ||
+			/\.vercel\.app$/.test(origin) ||
+			origin === "http://localhost:3000" ||
+			origin === "http://localhost:3001"
+		) {
+			callback(null, true);
+		} else {
+			callback(new Error(`CORS blocked: ${origin}`));
+		}
+	},
+}))
 app.use(cookieParser())
 app.use(morgan(MORGAN_FORMAT)) 
 //middleware design pattern
