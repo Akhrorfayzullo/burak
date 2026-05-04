@@ -4,6 +4,16 @@ setDefaultResultOrder("ipv4first")
 import dotenv from "dotenv"
 dotenv.config()
 
+import fs from "fs"
+import path from "path"
+
+// Ensure upload directories exist (needed on Render — ephemeral filesystem)
+const uploadDirs = ["uploads/members", "uploads/products"]
+uploadDirs.forEach((dir) => {
+    const fullPath = path.join(process.cwd(), dir)
+    if (!fs.existsSync(fullPath)) fs.mkdirSync(fullPath, { recursive: true })
+})
+
 import app from "./app"
 import mongoose from "mongoose"
 
