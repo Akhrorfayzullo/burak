@@ -32,9 +32,12 @@ memberController.signup = async (req: Request, res: Response) => {
         const result : Member = await memberService.signup(input);
 
         const token = await authService.createToken(result);
+        const isProd = process.env.NODE_ENV === "production";
         res.cookie("accessToken",token,{
             maxAge: AUTH_TIMER * 3600 * 1000,
             httpOnly: true,
+            sameSite: isProd ? "none" : "lax",
+            secure: isProd,
         });
 
         console.log("token: >>>",token)
@@ -54,9 +57,12 @@ memberController.login = async (req: Request, res: Response) => {
           result = await memberService.login(input),
           token = await authService.createToken(result);
 
+        const isProd = process.env.NODE_ENV === "production";
         res.cookie("accessToken",token,{
             maxAge: AUTH_TIMER * 3600 * 1000,
             httpOnly: true,
+            sameSite: isProd ? "none" : "lax",
+            secure: isProd,
         });
 
         console.log("token: >>>",token)
@@ -87,7 +93,8 @@ memberController.getMemberDetail = async (
 memberController.logout = (req: ExtendedRequest, res: Response) => {
 	try {
 		console.log("logout");
-		res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
+		const isProd = process.env.NODE_ENV === "production";
+		res.cookie("accessToken", null, { maxAge: 0, httpOnly: true, sameSite: isProd ? "none" : "lax", secure: isProd });
 		res.status(HttpCode.OK).json({ logout: true });
 	} catch (err: any) {
 		console.log("Error Logout", err.message);
