@@ -23,6 +23,8 @@ const store = new MongoDBStore({
 //1 Enterance
 const app = express()
 app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, "../public")))
+app.use("/uploads", express.static(path.join(__dirname, "../../uploads")))
 app.use("/uploads", express.static("./uploads"))
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
@@ -57,7 +59,7 @@ app.use(function(req,res,next){
 //3 views
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", [path.join(__dirname, "views"), path.join(__dirname, "../views")]);
 
 //4 Routers
 app.use("/", router)           // SPA: React SPA
