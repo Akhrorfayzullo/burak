@@ -40,6 +40,7 @@ app.use(cors({
 		if (
 			allowedOrigins.includes(origin) ||
 			/\.vercel\.app$/.test(origin) ||
+			/\.onrender\.com$/.test(origin) ||
 			origin === "http://localhost:3000" ||
 			origin === "http://localhost:3001"
 		) {
