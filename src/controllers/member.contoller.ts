@@ -138,7 +138,7 @@ memberController.getTopUsers = async (req: Request, res: Response) => {
 
 memberController.verifyAuth = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try{
-        const token = req.cookies["accessToken"] || req.headers.authorization?.split(" ")[1];
+        const token = req.headers.authorization?.split(" ")[1] || req.cookies["accessToken"];
         console.log("Passed here 1")
         if (token)  req.member = await authService.checkAuth(token);
         if (!req.member)
@@ -159,7 +159,7 @@ memberController.retrieveAuth = async (
 	next: NextFunction
 ) => {
 	try {
-		const token = req.cookies["accessToken"] || req.headers.authorization?.split(" ")[1];
+		const token = req.headers.authorization?.split(" ")[1] || req.cookies["accessToken"];
 		if (token) {
 			req.member = await authService.checkAuth(token);
 		}
